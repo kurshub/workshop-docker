@@ -31,10 +31,10 @@ Hvordan holde kontrollen når man begynner å få mange containere å holde styr
 - Registry for å finne images (https://hub.docker.com/search)
 - Docker Inc: En bedrift som skal tjene penger
 
-# Praktisk oppgave: Start en docker container fra et image
+# Praktisk oppgave 2.1: Start en docker container fra et image
 
 ```
-docker run -it --rm ubuntu
+docker run -it ubuntu
 ```
 
 ### Isolert filsystem
@@ -44,6 +44,7 @@ ls
 
 ### Isolert nettverk
 ```
+apt update
 apt install iproute2
 ip address show
 ```
@@ -68,7 +69,7 @@ top
   - Få et shell i containeren med `docker exec -it *navnet på containeren*`
   - Gå ut av containeren og kjør `docker ps`. Hva er tilstanden til containeren din?
   - Stopp containeren med `docker stop *navnet på containeren*`
-- Hva gjør `--rm`?
+- Legg til flagget `--rm`. Hva skjer da?
   - Hint: Vis også containere som ikke kjører med `docker ps -a`
 - Kjør `docker inspect ubuntu`
   - Henter metadaten til et image

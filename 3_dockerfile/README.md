@@ -1,28 +1,70 @@
 # Dockerfile
-En "Dockerfile" er en fil som beskriver stegene som skal utføres for å bygge et image. Opprett en slik fil i denne mappen.
+En "Dockerfile" er en fil som beskriver stegene som skal utføres for å bygge et image. Den er strukturert som en rekke kommandoer som er formatert i STORE BOKSTAVER. Dockerfiler pleier vanligvis å ligge i en fil som heter "Dockerfile", men det er ikke nødvendig at den heter det. 
 
-## `FROM`
-## `WORKDIR`
-## `COPY`
-## `RUN`
-## `CMD`
+- FROM
+- CMD
+- COPY
+- WORKDIR
+- RUN
+- USER
+- LABEL
+- ENV
+- ARG
 
-## Mer om base images
+## `FROM`: Mer om base images
 Base images brukes slik at applikasjonsutviklere kan fokusere på det som gjør vår applikasjon unik, fremfor å beskrive steg som er standard. For eksempel gi oss alt som er til stede på en `ubuntu`-server, eller installere programmeringsspråk eller vanlige pakker.
 
 ### Versjonering
-Navn på docker images består av to deler. Først en id og så en "tag", eller versjon. Når vi sier `ubuntu` bruker vi egentlig den implisitte versjonen `latest`. Altså den nyeste versjonen som finnes når vi laster ned imaget. Om vi ønsker en mer spesifikk versjon, kan vi isteden bruke for eksempel `ubuntu:22.10`. Hva kan være årsaken til at vi ønsker å spesifisere versjon?
+Navn på docker images består av to deler. Først en navn og så en "tag", eller versjon. Når vi sier `ubuntu` bruker vi egentlig den implisitte versjonen `latest`. Altså den nyeste versjonen som finnes når vi laster ned imaget. Om vi ønsker en mer spesifikk versjon, kan vi isteden bruke for eksempel `ubuntu:22.10`. Hva kan være årsaken til at vi ønsker å spesifisere versjon?
 
 
+## `CMD`: Hva skal applikasjonen din gjøre?
+Når vi bygger en applikasjon er det til syvende og sist en eller annen kommando som skal sparke den i gang. Det kan være
+- `npm run server`
+- `python src/manage.py`
+- `rails server`
+- `./start.sh`
+- `mvn run` 
+- +++
+
+Det er lurt å spesifisere kommandoen din som en liste av parametere. Det gjør at Docker slipper å starte kommandoen din inne i et shell som tolker kommandoen. Altså
+- `["npm", "run", "server"]`
+- `["python", "src/manage.py"]`
+- `["rails", "server"]`
+- `["./start.sh"]`
+- `["mvn", "run"]` 
+
+# Praktisk oppgave 3.1: Bygge et image
+Opprett en fil med navn Dockerfile i denne mappen og legg inn innholdet under:
 ```Dockerfile
 FROM ubuntu
 CMD ["echo", "Hello world"]
 ```
 
-## Bygge et image
+For å bygge et docker image er det kommandoen `docker build` som gjelder. For å spesifisere navnet på imaget du bygger bruker du `-t` etterfulgt av navnet. Det fungerer på samme måte som for henting av base images, at det er implisitt versjon `latest`, om man ikke spesifiserer en versjon etter `:` i navnet. Punktummet i enden av kommandoen indikerer at det er mappen vi står i nå vi skal bruke som utgangspunkt. Docker vil da lete etter en `Dockerfile` i mappen vi står i nå.
 ```
-docker build -t docker-workshop .
+docker build -t docker-workshop:del3 .
 ```
+
+Finn imaget du har bygd med `docker images`, og kjør det på samme måte som tidligere.
+
+# Enkel webapplikasjon med npm og vite
+
+## `WORKDIR`: Finn vår egen plass
+
+## `COPY`: Inn med vår egen kildekode
+
+## `RUN`: Utfør kommandoer når vi bygger
+
+# Praktisk oppgave 3.2: Enkel webapplikasjon med npm og vite
+
+
 
 ## Tips
 - Om du bruker Visual Studio Code kan du installere utvidelsen som heter Docker, fra Microsoft. Da kan du blant annet få automatiske forslag på base images, samt Ctrl-klikke på dem for å gå til kilden i Docker Hub.
+
+## Andre oppgaver
+- Kan du finne Dockerfilen som brukes for å bygge `ubuntu` på DockerHub? Hvordan ser den ut?
+
+## Ressurser
+- [Offisiell dokumentasjon for kommandoer i Dockerfile](https://docs.docker.com/engine/reference/builder)
