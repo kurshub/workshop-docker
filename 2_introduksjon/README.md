@@ -26,7 +26,7 @@ Hvordan lagre og distribuere images mellom maskiner?
 Hvordan holde kontrollen når man begynner å få mange containere å holde styr på? docker-compose, Kubernetes ++
 
 # Docker
-- Kommandolinjeverktøy for å bygge images (`docker build`), kjøre containere (`docker run`), og administrere (`docker ps`, `docker image ls`, `docker logs` +++). `docker --help`.
+- Kommandolinjeverktøy for å bygge images (`docker build`), kjøre containere (`docker run`), og administrere (`docker ps`, `docker images`, `docker logs` +++). `docker --help`.
 - "Daemon", tjenesten som faktisk kjører docker. Kommandolinjeverktøyene kommuniserer med denne tjenesten.
 - Registry for å finne images (https://hub.docker.com/search)
 - Docker Inc: En bedrift som skal tjene penger
@@ -34,7 +34,7 @@ Hvordan holde kontrollen når man begynner å få mange containere å holde styr
 # Praktisk oppgave: Start en docker container fra et image
 
 ```
-docker run -i -t --rm ubuntu
+docker run -it --rm ubuntu
 ```
 
 ### Isolert filsystem
@@ -55,7 +55,7 @@ top
 
 ## Tips
 - Gå ut av en container med Ctrl-D i terminalen.
-- For hjelpetekst om en `docker`-kommando kan du bruke `--help`. For eksempel `docker run --help`.
+- For hjelpetekst om en `docker`-kommando kan du bruke `--help`. For eksempel `docker run --help`. Eller generell hjelp, `docker --help`.
 - Når du skal spesifisere flere "en-bokstavs"-innstillinger (flagg) til `docker`-kommandoer, som for eksempel `-i` og `-t`, kan du kombinere dem til en, altså `-it`. `--rm` derimot er en "fler-bokstavs"-innstilling. Den bruker to bindestreker, og kan ikke kombineres med andre. Også `-i` og `-t` har tilsvarende fler-bokstavs-varianter, henholdsvis `--interactive` og `--tty`. En oversikt over innstillinger finnes i `--help`.
 
 ## Andre oppgaver
@@ -70,3 +70,9 @@ top
   - Stopp containeren med `docker stop *navnet på containeren*`
 - Hva gjør `--rm`?
   - Hint: Vis også containere som ikke kjører med `docker ps -a`
+- Kjør `docker inspect ubuntu`
+  - Henter metadaten til et image
+  - Se for eksempel på `Config.Cmd`. Det er derfor vi får opp et shell!
+
+## Ressurser
+- 

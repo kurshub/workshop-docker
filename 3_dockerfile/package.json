@@ -1,0 +1,13 @@
+{
+  "name": "workshop-docker",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "serve": "vite -c vite.config.js src/"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "vite": "~3.2.4",
+    "@vitejs/plugin-react": "~2.2.0"
+  }
+}
