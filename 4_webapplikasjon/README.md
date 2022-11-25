@@ -53,7 +53,65 @@ Er det nå mulig å gå inn i nettleseren og åpne applikasjonen på adressen de
 
 ## Tips
 - 
+# Nettverk i Docker
+En docker-container har et nettverk som er isolert fra vertsmaskinen. For å få tilgang til en port inne i containeren på vertsmaskinen er vi nødt til å publisere porten når vi starter containeren. Det gjør vi med `-p` (`--publish`) som en instilling til `docker run`. Til `-p` så spesifiserer vi to porter separert med `:`. Den første er porten vi ønsker å binde til på vertsmaskinen, mens den andre er porten inne i containeren.
+
+Et annet alternativ til å publisere porter, er å fjerne isoleringen fra vertsmaskinen. Da bruker vi innstillingen `--network host`. Hvorfor er ikke dette lurt?
 
 # Praktisk oppgave 4.2: Hvordan nå applikasjonen vår?
+Bruk det samme imaget som du gjorde i forrige oppgave, men utvid `docker run` slik at porten webapplikasjonen kjører på blir publisert til webapplikasjonen. Prøv også den alternative måten, med å fjerne isoleringen av nettverket.
 
+## Tips
 
+## Andre oppgaver
+- Noe med user defined networks
+
+## Ressurser
+- https://docs.docker.com/network/
+
+# Volumer i Docker
+En docker container har i utganspunktet ikke noe persistent tilstand. Altså, hvis man gjør endringer på filer i en kjørende container, eksisterer de endringene bare inne i den containeren og blir borte hvis containeren blir fjernet. For å få til tilstand i Docker som persisteres bruker vi derfor noe som kalles volumer. Volumer er persistente holdere av data, lever på utsiden av containere, og "monteres" inn i containere når man starter de. Volumer i docker administreres med `docker volume`. Et lite eksempel:
+
+```
+docker volume create my-vol
+docker run -it --rm -v my-vol:/my-folder alpine
+> touch my-file1.txt # Oppretter en tom fil utenfor volumet
+> cd /my-folder
+> touch my-file2.txt # Oppretter en tom fil inne i volumet
+> Ctrl-D # Går ut av containeren, som gjør at den stoppes og fjernes
+docker run -it --rm -v my-vol:/my-folder alpine
+> ls
+> ls /my-folder
+```
+Når du skriver ut filene som ligger i rot-mappa, ser du ikke lenger `my-file1.txt`, men i mappa `my-folder` kan du fremdeles se `my-file2.txt`. Det er fordi `my-folder` er montert i volumet `my-vol`. 
+
+Du kan vise volumer som finnes med `docker volume ls`, og slette et volum med `docker volume rm *navn*`.
+
+Vi kan også, isteden for å lage et volum med et navn (som `my-vol`), montere opp en mappe på vår vertsmaskin, som om det var et volum. Da gjør vi:
+```
+docker run -it --rm -v $HOME/my-local-folder:/my-folder alpine
+> cd /my-folder
+> touch my-file.txt
+> Ctrl-D
+ls $HOME/my-local-folder
+```
+
+Da ser vi faktisk at vi har opprettet en mappe på vår maskin, som inneholder fila vi lagde inne i containeren.
+
+Du kan også montere opp et volum i flere forskjellige docker containere på en gang, hvis de deler noen filer.
+
+# Praktisk oppgave 4.3 - Bruk av Docker i utvikling
+Vi går tilbake til vår webapplikasjon. Sånn vi har satt det opp til nå, er ikke dette veldig brukbart for utvikling. Hver gang vi vil gjøre en endring i kildekoden vår, må vi bygge og starte imaget vårt på nytt. Ikke særlig bra utvikleropplevelse! Prøv dette en gang for å se.
+
+Hvordan kan vi bruke volumer for å gjøre dette bedre?
+
+Når du har klart oppgaven, skal du kunne gjøre endringer i for eksempel `src/index.html` og se endringen med en gang i nettleseren din.
+
+## Tips
+- Når man bruker `-v`, *må* alle stiene, både den på vertsmaskinen og inne i containeren, være absolutte, altså at de begynner i rotmappa `/`. Du kan ikke bruke stier relativt til den mappen du står i, som `./`. Du kan riktignok bruke `$HOME`, en variabel som refererer til hjemmemappen til din bruker.
+- For å utforske filsystemet i containeren din, kan du åpne en ny terminal og bruke `docker exec -it *navn_på_container* bash`.
+- For å skrive ut stien du står i nå, kan du bruke `pwd`.
+- Husk å ta med deg videre `-p` instillingen fra forrige steg, slik at du kan nå webapplikasjonen.
+## Ressurser
+- https://docs.docker.com/storage/volumes/
+- `docker volume --help`
