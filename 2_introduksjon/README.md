@@ -58,6 +58,7 @@ top
 - Gå ut av en container med Ctrl-D i terminalen.
 - For hjelpetekst om en `docker`-kommando kan du bruke `--help`. For eksempel `docker run --help`. Eller generell hjelp, `docker --help`.
 - Når du skal spesifisere flere "en-bokstavs"-innstillinger (flagg) til `docker`-kommandoer, som for eksempel `-i` og `-t`, kan du kombinere dem til en, altså `-it`. `--rm` derimot er en "fler-bokstavs"-innstilling. Den bruker to bindestreker, og kan ikke kombineres med andre. Også `-i` og `-t` har tilsvarende fler-bokstavs-varianter, henholdsvis `--interactive` og `--tty`. En oversikt over innstillinger finnes i `--help`.
+- Det har ikke noe å si hvilken rekkefølge innstillingene kommer i, men de må spesifiseres *før* hvilket image man skal gjøre. Man kan for eksempel ikke gjøre: `docker run -it ubuntu --rm`. `--rm` må før `ubuntu`.
 
 ## Andre oppgaver
 - Bruk andre images fra [Docker Hub](https://hub.docker.com/search) og se hvordan de er annerledes.
