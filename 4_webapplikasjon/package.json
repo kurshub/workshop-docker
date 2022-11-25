@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "serve": "vite -c vite.config.js src/"
+    "start": "vite -c vite.config.js src/"
   },
   "license": "ISC",
   "dependencies": {

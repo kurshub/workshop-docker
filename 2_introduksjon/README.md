@@ -63,17 +63,20 @@ top
 - Bruk andre images fra [Docker Hub](https://hub.docker.com/search) og se hvordan de er annerledes.
   - Bruk `docker pull` for å laste ned et image uten å kjøre det.
   - Bruk `docker images` for å liste imagene du har lokalt.
+  - Kan du finne et image du kan bruke for å kjøre `python`?
 - Start containeren i bakgrunnen med: `docker run -itd ubuntu`.
   - Finn den kjørende containeren med: `docker ps`
     - Siden vi ikke spesifiserte noe navn på containeren vår med `--name` får den et tilfeldig navn. Hvilket navn har containeren fått?
   - Få et shell i containeren med `docker exec -it *navnet på containeren*`
   - Gå ut av containeren og kjør `docker ps`. Hva er tilstanden til containeren din?
   - Stopp containeren med `docker stop *navnet på containeren*`
+- Gi containeren din et eget navn med `--name`.
+  - Om du åpner en ny terminal, eventuelt kjører i bakgrunnen med `-d`, kan du finne igjen containeren med ditt eget navn med `docker ps`. Det gjør det litt enklere å holde oversikten!
+  - Hva skjer om du prøver å starte en ny container med samme navn? Hva skal til for å løse det? Hint: `docker stop` og `docker rm`.
 - Legg til flagget `--rm`. Hva skjer da?
   - Hint: Vis også containere som ikke kjører med `docker ps -a`
 - Kjør `docker inspect ubuntu`
   - Henter metadaten til et image
   - Se for eksempel på `Config.Cmd`. Det er derfor vi får opp et shell!
-
 ## Ressurser
 - 
