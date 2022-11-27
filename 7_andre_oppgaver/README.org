@@ -1,0 +1,6 @@
+#+title: Readme
+
+* Github oppgace
+[[./GithubRepo.org][github]]
+* Nettverksoppgave
+[[./Nettverk.org][Nettverk]]
