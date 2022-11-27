@@ -34,7 +34,7 @@ Det er lurt å spesifisere kommandoen din som en liste av parametere. Det gjør 
 - `["./start.sh"]`
 - `["mvn", "run"]` 
 
-# Praktisk oppgave 3: Bygge et image
+# Praktisk oppgave 2: Bygge et image
 Opprett en fil med navn Dockerfile i denne mappen og legg inn innholdet under:
 ```Dockerfile
 FROM ubuntu
@@ -43,7 +43,7 @@ CMD ["echo", "Hello world"]
 
 For å bygge et docker image er det kommandoen `docker build` som gjelder. For å spesifisere navnet på imaget du bygger bruker du `-t` etterfulgt av navnet. Det fungerer på samme måte som for henting av base images, at det er implisitt versjon `latest`, om man ikke spesifiserer en versjon etter `:` i navnet. Punktummet i enden av kommandoen indikerer at det er mappen vi står i nå vi skal bruke som utgangspunkt. Docker vil da lete etter en `Dockerfile` i mappen vi står i nå.
 ```
-docker build -t docker-workshop-oppg3 .
+docker build -t docker-workshop-oppg2 .
 ```
 
 Finn imaget du har bygd med `docker images`, og kjør det på samme måte som tidligere.
@@ -53,6 +53,6 @@ Finn imaget du har bygd med `docker images`, og kjør det på samme måte som ti
 
 ## Andre oppgaver
 - Kan du finne Dockerfilen som brukes for å bygge `ubuntu` på DockerHub? Hvordan ser den ut?
-- Prøv å bygge imaget med samme navn, men med forskjellig versjon, for eksempel `docker-workshop-oppg3:1`. Hvordan ser det ut i `docker images`? Hva er likt, og hva er forskjellig? Hint: Se på `IMAGE ID`.
+- Prøv å bygge imaget med samme navn, men med forskjellig versjon, for eksempel `docker-workshop-oppg2:1`. Hvordan ser det ut i `docker images`? Hva er likt, og hva er forskjellig? Hint: Se på `IMAGE ID`.
 ## Ressurser
 - [Offisiell dokumentasjon for kommandoer i Dockerfile](https://docs.docker.com/engine/reference/builder)

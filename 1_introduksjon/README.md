@@ -46,14 +46,16 @@ ls
 ```
 apt update
 apt install iproute2
-ip address show
+ip address show eth0
 ```
 
+Legg merke til at containeren har en annen IP-adresse en din maskin.
 ### Isolerte prosesser
 ```
-top
+ps aux
 ```
 
+Legg merke til at det kun er to prosesser, `bash` og `ps`.
 ## Tips
 - Gå ut av en container med Ctrl-D i terminalen.
 - For hjelpetekst om en `docker`-kommando kan du bruke `--help`. For eksempel `docker run --help`. Eller generell hjelp, `docker --help`.
@@ -68,7 +70,7 @@ top
 - Start containeren i bakgrunnen med: `docker run -itd ubuntu`.
   - Finn den kjørende containeren med: `docker ps`
     - Siden vi ikke spesifiserte noe navn på containeren vår med `--name` får den et tilfeldig navn. Hvilket navn har containeren fått?
-  - Få et shell i containeren med `docker exec -it *navnet på containeren*`
+  - Få et shell i containeren med `docker exec -it *navnet på containeren* bash`
   - Gå ut av containeren og kjør `docker ps`. Hva er tilstanden til containeren din?
   - Stopp containeren med `docker stop *navnet på containeren*`
 - Gi containeren din et eget navn med `--name`.

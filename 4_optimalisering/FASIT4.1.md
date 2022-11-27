@@ -1,12 +1,17 @@
 # Fasit for oppgave 4.1
 Dockerfile kan se slik ut:
 ```Dockerfile
-FROM node:18-alpine
+FROM node:18-alpine as dev
 
 WORKDIR /app
-COPY . .
+
+COPY package.json package.json
+COPY package-lock.json package-lock.json
 
 RUN ["npm", "install"]
+
+COPY . .
+
 CMD ["npm", "start"]
 ```
 
