@@ -1,5 +1,0 @@
-- Dev containers
-- Debugging i containers
-- Docker compose
-- dive
-- 
