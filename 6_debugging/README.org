@@ -1,0 +1,25 @@
+#+title: Readme
+
+* Prøv ut følgende verktøy
+
+** Inspiser images
+
+#+begin_src sh
+docker inspect ghcr.io/kurshub/docker:latest  | jq --indent 4 # Hvis du har jq (eller kan installereden)
+docker inspect ghcr.io/kurshub/docker:latest
+#+end_src
+
+** Hvordan et image er bygget
+#+begin_src sh
+docker history ghcr.io/kurshub/docker:latest  --no-trunc
+#+end_src
+
+** docker dive
+#+begin_src sh
+docker run  -it  -v /var/run/docker.sock:/var/run/docker.sock  wagoodman/dive ghcr.io/kurshub/docker:latest
+#+end_src
+
+** Docker lint
+#+begin_src sh
+docker run --rm -i hadolint/hadolint < Dockerfile
+#+end_src
