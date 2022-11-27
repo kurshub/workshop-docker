@@ -1,0 +1,35 @@
+#+title Github repositoru
+** Logg inn på github
+*** Developer settings
+- Personal access tokens
+  + Generate new token
+  + write:packages
+
+*** kopier token
+
+#+begin_src sh
+echo ghp_.................. |docker login ghcr.io -u knobo --password-stdin
+
+WARNING! Your password will be stored unencrypted in /home/knobo/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+#+end_src
+
+*** Tag ett image
+#+begin_src sh
+docker image ls alpine
+REPOSITORY   TAG       IMAGE ID       CREATED        SIZE
+alpine       3.17      31003d392b80   7 days ago     7.05MB
+#+end_src
+
+#+begin_src bash
+# docker tag alpine:latest ghcr.io/$GITUSER/$REPO:latest
+docker tag alpine:latest ghcr.io/kurshub/docker:latest
+
+docker push ghcr.io/kurshub/docker:latest
+The push refers to repository [ghcr.io/kurshub/docker]
+e5e13b0c77cb: Layer already exists
+latest: digest: sha256:3d426b0bfc361d6e8303f51459f17782b219dece42a1c7fe463b6014b189c86d size: 528
+#+end_src
