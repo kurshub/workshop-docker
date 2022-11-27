@@ -1,30 +1,3 @@
-# Hva er Docker?
-- Bygging av container images
-- Kjøring av container images
-- Distribusjon av container images
-
-# Hva er containers?
-- Reproduserbarhet
-- Portabilitet
-- Utvikleropplevelse
-- Isolering
-
-# Hva er et container image?
-- "Filesystem bundle"
-- Tarball
-- Manifest/config
-
-# Hva er en container runtime
-- Til forskjell fra en virtuell maskin, så deler en container operativsystemet, ikke bare hardware. Skalerer bedre.
-- Virtualisering og isolering av prosesser, filsystem, nettverk inne i et operativsystem
-- Linux namespaces
-
-# Container image distribution
-Hvordan lagre og distribuere images mellom maskiner? 
-
-# Container image orchestration
-Hvordan holde kontrollen når man begynner å få mange containere å holde styr på? docker-compose, Kubernetes ++
-
 # Docker
 - Kommandolinjeverktøy for å bygge images (`docker build`), kjøre containere (`docker run`), og administrere (`docker ps`, `docker images`, `docker logs` +++). `docker --help`.
 - "Daemon", tjenesten som faktisk kjører docker. Kommandolinjeverktøyene kommuniserer med denne tjenesten.
@@ -41,6 +14,7 @@ docker run -it ubuntu
 ```
 ls
 ```
+Vi har et helt eget filsystem inne i containeren!
 
 ### Isolert nettverk
 ```
@@ -50,12 +24,14 @@ ip address show eth0
 ```
 
 Legg merke til at containeren har en annen IP-adresse en din maskin.
+
 ### Isolerte prosesser
 ```
 ps aux
 ```
 
 Legg merke til at det kun er to prosesser, `bash` og `ps`.
+
 ## Tips
 - Gå ut av en container med Ctrl-D i terminalen.
 - For hjelpetekst om en `docker`-kommando kan du bruke `--help`. For eksempel `docker run --help`. Eller generell hjelp, `docker --help`.
@@ -81,5 +57,4 @@ Legg merke til at det kun er to prosesser, `bash` og `ps`.
 - Kjør `docker inspect ubuntu`
   - Henter metadaten til et image
   - Se for eksempel på `Config.Cmd`. Det er derfor vi får opp et shell!
-## Ressurser
-- 
+

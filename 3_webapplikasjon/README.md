@@ -1,30 +1,34 @@
 
-# Enkel webapplikasjon med npm og vite
+# 3: Enkel webapplikasjon med npm og vite
+I del 3 lærer vi mer om kommandoene i en Dockerfile, slik at vi kan begynne å lage en enkel applikasjon. For å å gjøre appen brukbar, lærer vi også mer om nettverk i Docker, og om volumer.
 
 ## `WORKDIR`: Finn vår egen plass
-Når vi skal jobbe med filsystemet i en docker container er det fint å legge ting et annet sted enn i rot-mappa `/`, siden det kan komme i konflikt med systemfiler. Det kan for eksempel være `WORKDIR /app`. Alle påfølgende kommandoer i Dockerfilen vil kjøres fra inne i denne mappen. Derfor er det lurt å ha `WORKDIR` så tidlig som mulig.
+Når vi skal jobbe med filsystemet i en container er det fint å legge ting et annet sted enn i rot-mappa `/`, siden det kan komme i konflikt med systemfiler. Det kan for eksempel være `WORKDIR /app`. Alle påfølgende kommandoer i Dockerfilen vil kjøres fra inne i denne mappen. Derfor er det lurt å ha `WORKDIR` så tidlig som mulig.
 
 ## `COPY`: Inn med vår egen kildekode
-`COPY` kopierer filer fra vertsmaskinen inn i containeren. Det første argumentet er hvilke filer vi skal kopiere over, og det andre argumentet er hvor de skal havne. For eksempel `COPY . .` kopierer alle filer og mapper over til containeren.
+`COPY` kopierer filer fra vertsmaskinen inn i containeren. Det første argumentet er hvilke filer vi skal kopiere over, og det andre argumentet er hvor de skal havne. For eksempel `COPY . .` kopierer alle filer og mapper som er inne i mappen der Dockerfile ligger, over til containeren. Hvis vi har satt `WORKDIR /app` tidligere, vil da filene kopieres inn i `/app`.
 
 ### `.dockerignore`
-Det kan være noen filer vi aldri har lyst til å kopiere over til containeren. Da kan vi opprette en `.dockerignore`-fil. Formatet på denne fila tilsvarer `.gitignore` for filer som ikke skal være i Git.
+Det kan være noen filer vi aldri har lyst til å kopiere over til containeren. Da kan vi opprette en `.dockerignore`-fil. Formatet på denne fila tilsvarer `.gitignore` for filer som ikke skal være i Git. I `.dockerignore`-filen her, har vi for eksempel satt `*.md`. Det betyr at alle markdown-filer aldri blir kopiert inn i containeren.
 
 ## `RUN`: Utfør kommandoer når vi bygger
 `RUN` brukes for å kjøre kommandoer inne i containeren i byggeprosessen. En vanlig bruk for dette er å installere pakker vi ønsker at containeren skal inneholde. For eksempel, i introduksjonen gjorde vi `apt update` og `apt install iproute2` i containeren for å se på nettverksinfo. Om vi ønsker at dette er noe man skal kunne gjøre lett i containeren kan vi legge inn en kommando `RUN apt update && apt install iproute2` i Dockerfile.
 
 # Praktisk oppgave 3.1: Enkel webapplikasjon med npm og vite
-I denne mappen er det filer for å sette opp en enkel webapplikasjon. Her er en rask forklaring av filene:
+I denne mappen finnes det filer for å sette opp en enkel klient-side webapplikasjon. Her er en rask forklaring av filene:
 ```
 package.json
 package-lock.json
 ```
-Dise filene beskriver metadataen til applikasjonen vår, som hvilke avhengigheter den har, samt hvilke kommandoer man kan gjøre i den. For å installere avhengigheter, kjører man `npm install`, og for å starte applikasjonen, kjører man `npm start`. `npm` (står for Node Package Manager) er en kommando som følger med når man installerer `node`, det mest populære kjøretidsmiljøet for JavaScript utenom nettleseren.
+Dise filene beskriver metadataen til applikasjonen vår, som hvilke avhengigheter den har, samt hvilke kommandoer man kan gjøre i den. Disse filene tolkes av verktøyet `npm`.  `npm` (står for Node Package Manager) er en kommando som følger med når man installerer `node`, det mest populære kjøretidsmiljøet for JavaScript utenom nettleseren. Kommandoene vi kan kjøre med `npm` i vår applikasjon er:
+1. `npm install`: for å installere avhengigheter
+2. `npm start`: for å starte applikasjonen for utvikling
+3. `npm build`: for å bygge optimalisert JavaScript til bruk i produksjon. De bygde filene legger seg i mappen `dist/`.
 
 ```
 vite.config.js
 ```
-Denne fila er konfigurasjon for webtjeneren (Vite) vi bruker i utvikling. Den lager en tjener som er tilgjengelig på `localhost:8080` der vi kan se vår kjørende applikasjon. Den gjør også om TypeScript-koden vår til vanlig JavaScript-kode, som nettleseren skjønner. Vite er en avhengighet av vår applikasjon, som blir tilgjengelig etter vi har gjort `npm install`.
+Denne fila er konfigurasjon for webtjeneren (Vite) vi bruker i utvikling. Den lager en tjener som er tilgjengelig på `localhost:8080` der vi kan se vår kjørende applikasjon. Den gjør også om TypeScript-koden vår til vanlig JavaScript-kode, som nettleseren skjønner. Vite er en avhengighet av vår applikasjon, som blir tilgjengelig etter vi har gjort `npm install`. Det `npm start` gjør, er egentlig å starte `vite`.
 
 ```
 src/index.html
@@ -51,26 +55,24 @@ Om du kjører applikasjonen med `-d` for å legge den i bakgrunnen, kan du finne
 
 Er det nå mulig å gå inn i nettleseren og åpne applikasjonen på adressen den sier? Hvorfor ikke?
 
-## Tips
-- 
+## Ressurser:
+  - [Tips for bruk av WORKDIR](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#workdir)
+  - [Tips for bruk av COPY](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#add-or-copy)
+  - [Tips for bruk av RUN](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#run)
+
 # Nettverk i Docker
-En docker-container har et nettverk som er isolert fra vertsmaskinen. For å få tilgang til en port inne i containeren på vertsmaskinen er vi nødt til å publisere porten når vi starter containeren. Det gjør vi med `-p` (`--publish`) som en instilling til `docker run`. Til `-p` så spesifiserer vi to porter separert med `:`. Den første er porten vi ønsker å binde til på vertsmaskinen, mens den andre er porten inne i containeren.
+En container har et nettverk som er isolert fra vertsmaskinen. For å få tilgang til en port inne i containeren på vertsmaskinen er vi nødt til å publisere porten når vi starter containeren. Det gjør vi med `-p` (`--publish`) som en instilling til `docker run`. Til `-p` så spesifiserer vi to porter separert med `:`. Den første er porten vi ønsker å binde til på vertsmaskinen, mens den andre er porten inne i containeren.
 
 Et annet alternativ til å publisere porter, er å fjerne isoleringen fra vertsmaskinen. Da bruker vi innstillingen `--network host`. Hvorfor er ikke dette lurt?
 
 # Praktisk oppgave 3.2: Hvordan nå applikasjonen vår?
 Bruk det samme imaget som du gjorde i forrige oppgave, men utvid `docker run` slik at porten webapplikasjonen kjører på blir publisert til webapplikasjonen. Prøv også den alternative måten, med å fjerne isoleringen av nettverket.
 
-## Tips
-
-## Andre oppgaver
-- Noe med user defined networks
-
 ## Ressurser
 - https://docs.docker.com/network/
 
 # Volumer i Docker
-En docker container har i utganspunktet ikke noe persistent tilstand. Altså, hvis man gjør endringer på filer i en kjørende container, eksisterer de endringene bare inne i den containeren og blir borte hvis containeren blir fjernet. For å få til tilstand i Docker som persisteres bruker vi derfor noe som kalles volumer. Volumer er persistente holdere av data, lever på utsiden av containere, og "monteres" inn i containere når man starter de. Volumer i docker administreres med `docker volume`. Et lite eksempel:
+En container har i utganspunktet ikke noe persistent tilstand. Altså, hvis man gjør endringer på filer i en kjørende container, eksisterer de endringene bare inne i den containeren og blir borte hvis containeren blir fjernet. For å få til tilstand i Docker som persisteres bruker vi derfor noe som kalles volumer. Volumer er persistente holdere av data, lever på utsiden av containere, og "monteres" inn i containere når man starter de. Volumer i docker administreres med `docker volume`. Et lite eksempel (gjerne prøv det selv):
 
 ```
 docker volume create my-vol
@@ -102,6 +104,16 @@ Du kan også montere opp et volum i flere forskjellige docker containere på en 
 
 # Praktisk oppgave 3.3 - Bruk av Docker i utvikling
 Vi går tilbake til vår webapplikasjon. Sånn vi har satt det opp til nå, er ikke dette veldig brukbart for utvikling. Hver gang vi vil gjøre en endring i kildekoden vår, må vi bygge og starte imaget vårt på nytt. Ikke særlig bra utvikleropplevelse! Prøv dette en gang for å se.
+```
+docker build -t docker-workshop-oppg3 .
+docker run -it --rm -p 8080:8080 docker-workshop-oppg3
+# Gjør en endring i src/index.html
+# Den dukker ikke opp i nettleseren :/
+> Ctrl-D
+docker build -t docker-workshop-oppg3 .
+docker run -it --rm -p 8080:8080 docker-workshop-oppg3
+# Nå dukker endringen opp!
+```
 
 Hvordan kan vi bruke volumer for å gjøre dette bedre?
 

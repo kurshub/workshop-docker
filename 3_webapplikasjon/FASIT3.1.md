@@ -12,10 +12,10 @@ CMD ["npm", "start"]
 
 For å bygge imaget:
 ```
-docker build -t docker-workshop-oppg4 .
+docker build -t docker-workshop-oppg3 .
 ```
 
 For å kjøre imaget:
 ```
-docker run -it --rm docker-workshop-oppg4
+docker run -it --rm docker-workshop-oppg3
 ```

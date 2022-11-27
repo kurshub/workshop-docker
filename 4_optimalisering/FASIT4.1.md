@@ -1,7 +1,7 @@
 # Fasit for oppgave 4.1
 Dockerfile kan se slik ut:
 ```Dockerfile
-FROM node:18-alpine as dev
+FROM node:18-alpine
 
 WORKDIR /app
 
@@ -22,5 +22,5 @@ docker build -t docker-workshop-oppg4 .
 
 For å kjøre imaget:
 ```
-docker run -it --rm docker-workshop-oppg4
+docker run -it --rm -p 8080:8080 -v *stien til workshop-docker repoet*/4_optimalisering/src:/app/src docker-workshop-oppg4
 ```
