@@ -13,7 +13,7 @@ Det kan være noen filer vi aldri har lyst til å kopiere over til containeren. 
 ## `RUN`: Utfør kommandoer når vi bygger
 `RUN` brukes for å kjøre kommandoer inne i containeren i byggeprosessen. En vanlig bruk for dette er å installere pakker vi ønsker at containeren skal inneholde. For eksempel, i introduksjonen gjorde vi `apt update` og `apt install iproute2` i containeren for å se på nettverksinfo. Om vi ønsker at dette er noe man skal kunne gjøre lett i containeren kan vi legge inn en kommando `RUN apt update && apt install iproute2` i Dockerfile.
 
-# Praktisk oppgave 4.1: Enkel webapplikasjon med npm og vite
+# Praktisk oppgave 3.1: Enkel webapplikasjon med npm og vite
 I denne mappen er det filer for å sette opp en enkel webapplikasjon. Her er en rask forklaring av filene:
 ```
 package.json
@@ -58,7 +58,7 @@ En docker-container har et nettverk som er isolert fra vertsmaskinen. For å få
 
 Et annet alternativ til å publisere porter, er å fjerne isoleringen fra vertsmaskinen. Da bruker vi innstillingen `--network host`. Hvorfor er ikke dette lurt?
 
-# Praktisk oppgave 4.2: Hvordan nå applikasjonen vår?
+# Praktisk oppgave 3.2: Hvordan nå applikasjonen vår?
 Bruk det samme imaget som du gjorde i forrige oppgave, men utvid `docker run` slik at porten webapplikasjonen kjører på blir publisert til webapplikasjonen. Prøv også den alternative måten, med å fjerne isoleringen av nettverket.
 
 ## Tips
@@ -100,7 +100,7 @@ Da ser vi faktisk at vi har opprettet en mappe på vår maskin, som inneholder f
 
 Du kan også montere opp et volum i flere forskjellige docker containere på en gang, hvis de deler noen filer.
 
-# Praktisk oppgave 4.3 - Bruk av Docker i utvikling
+# Praktisk oppgave 3.3 - Bruk av Docker i utvikling
 Vi går tilbake til vår webapplikasjon. Sånn vi har satt det opp til nå, er ikke dette veldig brukbart for utvikling. Hver gang vi vil gjøre en endring i kildekoden vår, må vi bygge og starte imaget vårt på nytt. Ikke særlig bra utvikleropplevelse! Prøv dette en gang for å se.
 
 Hvordan kan vi bruke volumer for å gjøre dette bedre?

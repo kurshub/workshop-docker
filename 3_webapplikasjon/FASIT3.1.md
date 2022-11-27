@@ -1,4 +1,4 @@
-# Fasit for oppgave 4.1
+# Fasit for oppgave 3.1
 Dockerfile kan se slik ut:
 ```Dockerfile
 FROM node:18-alpine

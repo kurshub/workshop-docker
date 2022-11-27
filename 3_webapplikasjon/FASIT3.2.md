@@ -1,4 +1,4 @@
-# Fasit for oppgave 4.2
+# Fasit for oppgave 3.2
 For å publisere riktig port:
 ```
 docker run -it --rm -p 8080:8080 docker-workshop-oppg4
