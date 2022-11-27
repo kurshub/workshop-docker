@@ -1,6 +1,7 @@
 # Docker
-- Kommandolinjeverktøy for å bygge images (`docker build`), kjøre containere (`docker run`), og administrere (`docker ps`, `docker images`, `docker logs` +++). `docker --help`.
-- "Daemon", tjenesten som faktisk kjører docker. Kommandolinjeverktøyene kommuniserer med denne tjenesten.
+Docker er flere ting:
+- Et kommandolinjeverktøy for å bygge images (`docker build`), kjøre containere (`docker run`), og administrere (`docker ps`, `docker images`, `docker logs` +++). `docker --help`.
+- En "Daemon", tjenesten som faktisk kjører docker. Kommandolinjeverktøyene kommuniserer med denne tjenesten.
 - Registry for å finne images (https://hub.docker.com/search)
 - Docker Inc: En bedrift som skal tjene penger
 
