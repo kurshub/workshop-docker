@@ -1,0 +1,10 @@
+
+services:
+  client:
+    build:
+      target: dev
+    volumes:
+      - ./client/src:/app/src
+  server:
+    volumes:
+      - ./server/src:/app/src
