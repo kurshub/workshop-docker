@@ -5,7 +5,7 @@ Når grunnlaget for et lag er det samme som når man bygde sist, trenger man ikk
 
 
 # Praktisk oppgave 4.1 - Cache-optimalisering
-Kopier inn Dockerfile fra oppgave 4. Bruk den som ligger i `FASIT4.1.md` om du ikke ble ferdig. Kjør:
+Kopier inn Dockerfile fra oppgave 3. Bruk den som ligger i `FASIT3.1.md` om du ikke ble ferdig. Kjør:
 ```
 docker build -t docker-workshop-oppg4 .
 ```
